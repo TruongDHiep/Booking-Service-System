@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Root Menu -->
+  <menuitem id="menu_service_booking_root"
+    name="Service Booking"
+    sequence="10"
+    web_icon="om_service_master,static/description/icon.png"/>
+
+  <!-- Master Data Menu -->
+  <menuitem id="menu_service_master"
+    name="Master Data"
+    parent="menu_service_booking_root"
+    sequence="10"/>
+
+  <!-- Services Menu -->
+  <menuitem id="menu_booking_service"
+    name="Services"
+    parent="menu_service_master"
+    action="booking_service_action"
+    sequence="10"/>
+
+</odoo>

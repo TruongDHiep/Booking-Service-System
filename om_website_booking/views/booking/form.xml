@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Booking Form Template -->
+  <template id="booking_form" name="Booking Form">
+    <t t-call="website.layout">
+      <div id="wrap" class="oe_structure">
+
+        <section class="py-5">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+
+                <!-- Header -->
+                <div class="mb-4">
+                  <a href="/booking" class="btn btn-link text-decoration-none p-0 mb-3">
+                    <i class="fa fa-arrow-left me-2"/>Back to Services</a>
+                  <h2 class="fw-bold mb-2">Book Your Appointment</h2>
+                  <p class="text-muted">Fill in the details below to schedule your service</p>
+                </div>
+
+                <!-- Service Info Card -->
+                <div class="card shadow-sm mb-4">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-auto">
+                        <t t-if="service.image">
+                          <img
+                            t-att-src="'data:image/png;base64,%s' % service.image.decode('utf-8')"
+                            class="rounded"
+                            style="width: 80px; height: 80px; object-fit: cover;"
+                            t-att-alt="service.name"/>
+                        </t>
+                        <t t-else="">
+                          <div
+                            class="bg-light rounded d-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px;">
+                            <i class="fa fa-briefcase fa-2x text-muted"/>
+                          </div>
+                        </t>
+                      </div>
+                      <div class="col">
+                        <h5 class="fw-bold mb-1">
+                          <t t-esc="service.name"/>
+                        </h5>
+                        <p class="text-muted mb-0">
+                          <i class="fa fa-clock-o me-1"/>
+                          <t t-esc="service.duration_display"/> hours <span
+                            class="mx-2">•</span>
+                          <span class="fw-bold text-primary">
+                            <t t-esc="service.price"
+                              t-options="{'widget': 'monetary', 'display_currency': service.currency_id}"/>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="card shadow-sm">
+                  <div class="card-body p-4">
+                    <form action="/booking/create" method="POST" id="bookingForm">
+                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <input type="hidden" name="service_id" t-att-value="service.id"/>
+
+                      <h5 class="fw-bold mb-3">Your Information</h5>
+
+                      <!-- Use Account Info Toggle (only if logged in) -->
+                      <t
+                        t-if="request.env.user.partner_id.id != request.env.ref('base.public_partner').id">
+                        <div class="mb-4 p-3 bg-light rounded">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox"
+                              id="useAccountInfo" checked="checked"/>
+                            <label class="form-check-label" for="useAccountInfo">
+                              <strong>Use my account information</strong>
+                            </label>
+                          </div>
+                          <small class="text-muted">Uncheck to enter different contact details</small>
+                        </div>
+                      </t>
+
+                      <!-- Customer Name -->
+                      <div class="mb-3">
+                        <label for="customer_name" class="form-label">Full Name <span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control customer-field" id="customer_name"
+                          name="customer_name" required="required"
+                          t-att-value="request.env.user.partner_id.name if request.env.user.partner_id.id != request.env.ref('base.public_partner').id else ''"
+                          placeholder="Enter your full name"/>
+                      </div>
+
+                      <!-- Customer Email -->
+                      <div class="mb-3">
+                        <label for="customer_email" class="form-label">Email Address <span
+                            class="text-danger">*</span></label>
+                        <input type="email" class="form-control customer-field" id="customer_email"
+                          name="customer_email" required="required"
+                          t-att-value="request.env.user.partner_id.email if request.env.user.partner_id.id != request.env.ref('base.public_partner').id else ''"
+                          placeholder="your.email@example.com"/>
+                      </div>
+
+                      <!-- Customer Phone -->
+                      <div class="mb-3">
+                        <label for="customer_phone" class="form-label">Phone Number <span
+                            class="text-danger">*</span></label>
+                        <div class="input-group">
+                          <select class="form-select customer-field" id="country_code"
+                            name="country_code"
+                            style="max-width: 140px;">
+                            <option value="+84" selected="selected">🇻🇳 +84</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+86">🇨🇳 +86</option>
+                            <option value="+81">🇯🇵 +81</option>
+                            <option value="+82">🇰🇷 +82</option>
+                            <option value="+65">🇸🇬 +65</option>
+                            <option value="+60">🇲🇾 +60</option>
+                            <option value="+66">🇹🇭 +66</option>
+                            <option value="+63">🇵🇭 +63</option>
+                          </select>
+                          <input type="tel" class="form-control customer-field" id="customer_phone"
+                            name="customer_phone" required="required"
+                            pattern="[0-9]{7,15}"
+                            title="Phone number must be 7-15 digits only"
+                            t-att-value="request.env.user.partner_id.phone.replace('+84', '').strip() if request.env.user.partner_id.phone and request.env.user.partner_id.id != request.env.ref('base.public_partner').id else ''"
+                            placeholder="123 456 789"/>
+                        </div>
+                        <div class="form-text">Enter phone number without country code (7-15 digits)</div>
+                      </div>
+
+                      <hr class="my-4"/>
+
+                      <h5 class="fw-bold mb-4">Appointment Details</h5>
+
+                      <!-- Booking Date &amp; Time -->
+                      <div class="mb-4">
+                        <label class="form-label fw-bold">Step 1: Select Date <span
+                            class="text-danger">*</span></label>
+                        <input type="date" class="form-control form-control-lg" id="selected_date"
+                          required="required"
+                          t-att-min="datetime.datetime.now().strftime('%Y-%m-%d')"
+                          placeholder="Choose a date"/>
+                        <div class="form-text">Past dates are automatically disabled</div>
+                      </div>
+
+                      <!-- Step 2: Time Slot Selection -->
+                      <div class="mb-4" id="time_slot_container" style="display: none;">
+                        <label class="form-label fw-bold">Step 2: Select Time Slot <span
+                            class="text-danger">*</span></label>
+
+                        <!-- Loading State -->
+                        <div id="slots_loading" class="text-center py-4" style="display: none;">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          <p class="text-muted mt-2">Checking availability...</p>
+                        </div>
+
+                        <!-- Time Slots Grid -->
+                        <div id="time_slots_grid" class="time-slots-grid">
+                          <!-- Will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="mt-3 d-flex flex-wrap gap-3 small text-muted">
+                          <div>
+                            <span class="slot-legend slot-available"></span>
+                            <span>Available</span>
+                          </div>
+                          <div>
+                            <span class="slot-legend slot-full"></span>
+                            <span>Full</span>
+                          </div>
+                          <div>
+                            <span class="slot-legend slot-past"></span>
+                            <span>Past</span>
+                          </div>
+                          <div>
+                            <span class="slot-legend slot-selected"></span>
+                            <span>Selected</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Hidden input for form submission -->
+                      <input type="hidden" id="booking_date" name="booking_date" required="required"/>
+
+                      <!-- Notes -->
+                      <div class="mb-4">
+                        <label for="notes" class="form-label">Special Requirements (Optional)</label>
+                        <textarea class="form-control" id="notes" name="notes"
+                          rows="3" placeholder="Any special requests or notes..."></textarea>
+                      </div>
+
+                      <!-- Submit Button -->
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fa fa-check-circle me-2"/>Confirm Booking</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </t>
+  </template>
+
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="service_appointment_view_form_inherit_sale" model="ir.ui.view">
+    <field name="name">service.appointment.view.form.inherit.sale</field>
+    <field name="model">service.appointment</field>
+    <field name="inherit_id" ref="om_service_operation.service_appointment_view_form"/>
+    <field name="arch" type="xml">
+
+      <xpath expr="//div[@name='button_box']" position="inside">
+        <button name="action_view_sale_order" type="object"
+          class="oe_stat_button" icon="fa-usd"
+          invisible="sale_order_count == 0">
+          <field name="sale_order_count" widget="statinfo" string="Quotation"/>
+        </button>
+      </xpath>
+
+      <xpath expr="//header" position="inside">
+        <button name="action_create_sale_order" type="object"
+          string="Create Quotation"
+          class="btn-primary"
+          invisible="state != 'confirmed' or sale_order_id"/>
+      </xpath>
+
+      <xpath expr="//field[@name='notes']" position="after">
+        <group name="sale_info" string="Sales Information"
+          invisible="not sale_order_id">
+          <field name="sale_order_id" readonly="1"
+            options="{'no_create': True, 'no_open': False}"/>
+        </group>
+      </xpath>
+
+    </field>
+  </record>
+
+</odoo>

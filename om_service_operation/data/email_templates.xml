@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Booking Confirmation Email Template - Spa Design -->
+  <record id="email_booking_confirmation" model="mail.template">
+    <field name="name">Booking Confirmation</field>
+    <field name="model_id" ref="model_service_appointment"/>
+    <field name="subject">Your Appointment is Confirmed - ${object.service_id.name}</field>
+    <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+    <field name="partner_to">${object.customer_id.id}</field>
+    <field name="body_html" type="html">
+      <div
+        style="margin: 0; padding: 0; font-family: 'Georgia', 'Times New Roman', serif; background-color: #f5f5f0;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+          style="background-color: #f5f5f0; padding: 40px 20px;">
+          <tr>
+            <td align="center">
+              <table border="0" cellpadding="0" cellspacing="0" width="600"
+                style="background-color: #ffffff; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+
+                <!-- Header -->
+                <tr>
+                  <td
+                    style="background-color: #d4e4d8; padding: 50px 40px; text-align: center; border-bottom: 1px solid #c8d8cc;">
+                    <h1
+                      style="margin: 0; color: #2d3e2d; font-size: 32px; font-weight: 300; letter-spacing: 1px;">
+                      Your Appointment is Confirmed </h1>
+                    <p
+                      style="margin: 15px 0 0 0; color: #5a6b5a; font-size: 15px; font-weight: 400;">
+                      We look forward to welcoming you </p>
+                  </td>
+                </tr>
+
+                <!-- Body -->
+                <tr>
+                  <td style="padding: 50px 40px;">
+                    <p
+                      style="margin: 0 0 25px 0; font-size: 16px; color: #3a3a3a; line-height: 1.7;">
+                      Dear <strong style="color: #2d3e2d;">${object.customer_id.name}</strong>, </p>
+
+                    <p
+                      style="margin: 0 0 40px 0; font-size: 16px; color: #5a5a5a; line-height: 1.7;">
+                      Thank you for choosing our spa. Your appointment has been successfully
+                      scheduled and we are delighted to confirm the details below. </p>
+
+                    <!-- Appointment Details -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #fafaf8; border-left: 3px solid #a8c8b0; padding: 30px; margin-bottom: 40px;">
+                      <tr>
+                        <td>
+                          <h2
+                            style="margin: 0 0 25px 0; color: #2d3e2d; font-size: 18px; font-weight: 400; letter-spacing: 0.5px;">
+                            Appointment Details </h2>
+
+                          <table border="0" cellpadding="8" cellspacing="0" width="100%"
+                            style="font-size: 15px;">
+                            <tr>
+                              <td width="140"
+                                style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Reference </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.reference} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Service </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.service_id.name} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Date </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${format_datetime(object.booking_date, dt_format='EEEE, MMMM dd,
+                                yyyy', tz=object.customer_id.tz or 'UTC')} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Time </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${format_datetime(object.booking_date, dt_format='HH:mm',
+                                tz=object.customer_id.tz or 'UTC')} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Duration </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${'%.1f' % object.service_id.duration} hour(s) </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Portal Link -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="margin-bottom: 35px;">
+                      <tr>
+                        <td align="center" style="padding: 20px 0;">
+                          <a href="${object.get_portal_url()}"
+                            style="background-color: #a8c8b0; color: #ffffff; padding: 14px 35px; text-decoration: none; border-radius: 1px; font-size: 15px; font-weight: 400; display: inline-block; letter-spacing: 0.5px;">
+                            View Details </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Cancellation Policy -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #f9f9f7; border-left: 2px solid #d4d4cc; padding: 20px; margin-bottom: 25px;">
+                      <tr>
+                        <td>
+                          <p style="margin: 0; font-size: 14px; color: #6a6a6a; line-height: 1.6;">
+                            <strong style="color: #5a5a5a;">Cancellation Policy:</strong><br/> Free
+                            cancellation up to 24 hours before your appointment. </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p style="margin: 0; font-size: 15px; color: #5a5a5a; line-height: 1.7;"> If you
+                      have any questions, please don't hesitate to contact us. </p>
+
+                    <p
+                      style="margin: 25px 0 0 0; font-size: 15px; color: #5a5a5a; line-height: 1.7;">
+                      With gratitude,<br/>
+                      <strong style="color: #2d3e2d;">${object.company_id.name}</strong>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td
+                    style="background-color: #fafaf8; padding: 30px 40px; text-align: center; border-top: 1px solid #e8e8e4;">
+                    <p style="margin: 0; font-size: 13px; color: #8a8a8a; line-height: 1.6;">
+                      ${object.company_id.name}<br/> % if object.company_id.email:
+                      ${object.company_id.email}% endif % if object.company_id.phone: |
+                      ${object.company_id.phone}% endif </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </field>
+  </record>
+
+  <!-- Appointment Reminder Email Template - Spa Design -->
+  <record id="email_appointment_reminder" model="mail.template">
+    <field name="name">Appointment Reminder</field>
+    <field name="model_id" ref="model_service_appointment"/>
+    <field name="subject">Reminder: Your Appointment Tomorrow - ${object.service_id.name}</field>
+    <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+    <field name="partner_to">${object.customer_id.id}</field>
+    <field name="body_html" type="html">
+      <div
+        style="margin: 0; padding: 0; font-family: 'Georgia', 'Times New Roman', serif; background-color: #f5f5f0;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+          style="background-color: #f5f5f0; padding: 40px 20px;">
+          <tr>
+            <td align="center">
+              <table border="0" cellpadding="0" cellspacing="0" width="600"
+                style="background-color: #ffffff; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+
+                <!-- Header -->
+                <tr>
+                  <td
+                    style="background-color: #e8d4c8; padding: 50px 40px; text-align: center; border-bottom: 1px solid #dcc8bc;">
+                    <h1
+                      style="margin: 0; color: #3e2d2d; font-size: 32px; font-weight: 300; letter-spacing: 1px;">
+                      Upcoming Appointment Reminder </h1>
+                    <p
+                      style="margin: 15px 0 0 0; color: #6b5a5a; font-size: 15px; font-weight: 400;">
+                      We're looking forward to seeing you tomorrow </p>
+                  </td>
+                </tr>
+
+                <!-- Body -->
+                <tr>
+                  <td style="padding: 50px 40px;">
+                    <p
+                      style="margin: 0 0 25px 0; font-size: 16px; color: #3a3a3a; line-height: 1.7;">
+                      Dear <strong style="color: #2d3e2d;">${object.customer_id.name}</strong>, </p>
+
+                    <p
+                      style="margin: 0 0 40px 0; font-size: 16px; color: #5a5a5a; line-height: 1.7;">
+                      This is a gentle reminder about your spa appointment scheduled for tomorrow.
+                      We are excited to provide you with a rejuvenating experience. </p>
+
+                    <!-- Appointment Details -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #fdf9f7; border-left: 3px solid: #c8b0a8; padding: 30px; margin-bottom: 40px;">
+                      <tr>
+                        <td>
+                          <h2
+                            style="margin: 0 0 25px 0; color: #3e2d2d; font-size: 18px; font-weight: 400; letter-spacing: 0.5px;">
+                            Your Appointment </h2>
+
+                          <table border="0" cellpadding="8" cellspacing="0" width="100%"
+                            style="font-size: 15px;">
+                            <tr>
+                              <td width="140"
+                                style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Service </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.service_id.name} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Date &amp; Time </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${format_datetime(object.booking_date, dt_format='EEEE, MMMM dd,
+                                yyyy', tz=object.customer_id.tz or 'UTC')} at
+                                ${format_datetime(object.booking_date, dt_format='HH:mm',
+                                tz=object.customer_id.tz or 'UTC')} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Duration </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${'%.1f' % object.service_id.duration} hour(s) </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Reference </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.reference} </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Portal Link -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="margin-bottom: 35px;">
+                      <tr>
+                        <td align="center" style="padding: 20px 0;">
+                          <a href="${object.get_portal_url()}"
+                            style="background-color: #c8b0a8; color: #ffffff; padding: 14px 35px; text-decoration: none; border-radius: 1px; font-size: 15px; font-weight: 400; display: inline-block; letter-spacing: 0.5px;">
+                            View Details </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Cancellation Notice -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #f9f9f7; border-left: 2px solid #d4d4cc; padding: 20px; margin-bottom: 25px;">
+                      <tr>
+                        <td>
+                          <p style="margin: 0; font-size: 14px; color: #6a6a6a; line-height: 1.6;">
+                            <strong style="color: #5a5a5a;">Need to reschedule?</strong><br/> Please
+                            let us know as soon as possible through the portal link above. </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p
+                      style="margin: 25px 0 0 0; font-size: 15px; color: #5a5a5a; line-height: 1.7;">
+                      With gratitude,<br/>
+                      <strong style="color: #2d3e2d;">${object.company_id.name}</strong>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td
+                    style="background-color: #fafaf8; padding: 30px 40px; text-align: center; border-top: 1px solid #e8e8e4;">
+                    <p style="margin: 0; font-size: 13px; color: #8a8a8a; line-height: 1.6;">
+                      ${object.company_id.name}<br/> % if object.company_id.email:
+                      ${object.company_id.email}% endif </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </field>
+  </record>
+
+  <!-- Completion Notification Email Template - Spa Design -->
+  <record id="email_completion_notification" model="mail.template">
+    <field name="name">Completion Notification</field>
+    <field name="model_id" ref="model_service_appointment"/>
+    <field name="subject">Thank You for Visiting ${object.company_id.name}</field>
+    <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+    <field name="partner_to">${object.customer_id.id}</field>
+    <field name="body_html" type="html">
+      <div
+        style="margin: 0; padding: 0; font-family: 'Georgia', 'Times New Roman', serif; background-color: #f5f5f0;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+          style="background-color: #f5f5f0; padding: 40px 20px;">
+          <tr>
+            <td align="center">
+              <table border="0" cellpadding="0" cellspacing="0" width="600"
+                style="background-color: #ffffff; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+
+                <!-- Header -->
+                <tr>
+                  <td
+                    style="background-color: #d8e4e8; padding: 50px 40px; text-align: center; border-bottom: 1px solid #ccd8dc;">
+                    <h1
+                      style="margin: 0; color: #2d3e3e; font-size: 32px; font-weight: 300; letter-spacing: 1px;">
+                      Thank You </h1>
+                    <p
+                      style="margin: 15px 0 0 0; color: #5a6b6b; font-size: 15px; font-weight: 400;">
+                      It was a pleasure serving you </p>
+                  </td>
+                </tr>
+
+                <!-- Body -->
+                <tr>
+                  <td style="padding: 50px 40px;">
+                    <p
+                      style="margin: 0 0 25px 0; font-size: 16px; color: #3a3a3a; line-height: 1.7;">
+                      Dear <strong style="color: #2d3e2d;">${object.customer_id.name}</strong>, </p>
+
+                    <p
+                      style="margin: 0 0 40px 0; font-size: 16px; color: #5a5a5a; line-height: 1.7;">
+                      Thank you for choosing <strong>${object.company_id.name}</strong>. We hope you
+                      enjoyed your <strong>${object.service_id.name}</strong> experience and left
+                      feeling refreshed and renewed. </p>
+
+                    <!-- Service Summary -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #f7fafa; border-left: 3px solid #b0c8c8; padding: 30px; margin-bottom: 40px;">
+                      <tr>
+                        <td>
+                          <h2
+                            style="margin: 0 0 25px 0; color: #2d3e3e; font-size: 18px; font-weight: 400; letter-spacing: 0.5px;">
+                            Your Visit </h2>
+
+                          <table border="0" cellpadding="8" cellspacing="0" width="100%"
+                            style="font-size: 15px;">
+                            <tr>
+                              <td width="140"
+                                style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Service </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.service_id.name} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Date </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${format_datetime(object.booking_date, dt_format='MMMM dd, yyyy',
+                                tz=object.customer_id.tz or 'UTC')} </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6a6a6a; padding: 10px 0; vertical-align: top;">
+                                Reference </td>
+                              <td style="color: #2d2d2d; padding: 10px 0; font-weight: 500;">
+                                ${object.reference} </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Book Again CTA -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="margin-bottom: 40px;">
+                      <tr>
+                        <td align="center" style="padding: 20px 0;">
+                          <p style="margin: 0 0 20px 0; font-size: 16px; color: #5a5a5a;"> We would
+                            love to welcome you back </p>
+                          <a href="/booking"
+                            style="background-color: #b0c8c8; color: #ffffff; padding: 14px 35px; text-decoration: none; border-radius: 1px; font-size: 15px; font-weight: 400; display: inline-block; letter-spacing: 0.5px;">
+                            Book Your Next Visit </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Feedback Section -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                      style="background-color: #f9f9f7; border-left: 2px solid #d4d4cc; padding: 20px; margin-bottom: 25px;">
+                      <tr>
+                        <td>
+                          <p style="margin: 0; font-size: 14px; color: #6a6a6a; line-height: 1.6;">
+                            <strong style="color: #5a5a5a;">Your feedback matters</strong><br/> We
+                            would appreciate hearing about your experience. </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p
+                      style="margin: 25px 0 0 0; font-size: 15px; color: #5a5a5a; line-height: 1.7;">
+                      With gratitude,<br/>
+                      <strong style="color: #2d3e2d;">${object.company_id.name}</strong>
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                  <td
+                    style="background-color: #fafaf8; padding: 30px 40px; text-align: center; border-top: 1px solid #e8e8e4;">
+                    <p style="margin: 0; font-size: 13px; color: #8a8a8a; line-height: 1.6;">
+                      ${object.company_id.name}<br/> % if object.company_id.email:
+                      ${object.company_id.email}% endif % if object.company_id.phone: |
+                      ${object.company_id.phone}% endif </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </field>
+  </record>
+
+</odoo>

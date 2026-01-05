@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- List View: Appointment List -->
+  <record id="service_appointment_view_list" model="ir.ui.view">
+    <field name="name">service.appointment.view.list</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <list string="Appointments" decoration-muted="state == 'cancel'"
+        decoration-success="state == 'done'" decoration-info="state == 'confirmed'">
+        <field name="reference"/>
+        <field name="customer_id"/>
+        <field name="service_id"/>
+        <field name="booking_date"/>
+        <field name="duration" widget="float_time"/>
+        <field name="end_date"/>
+        <field name="price" widget="monetary"/>
+        <field name="currency_id" column_invisible="1"/>
+        <field name="state" widget="badge"
+          decoration-info="state == 'draft'"
+          decoration-success="state == 'confirmed'"
+          decoration-muted="state == 'cancel'"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form View: Appointment Details -->
+  <record id="service_appointment_view_form" model="ir.ui.view">
+    <field name="name">service.appointment.view.form</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <form string="Appointment">
+        <header>
+          <button name="action_confirm" string="Confirm" type="object"
+            class="oe_highlight" invisible="state != 'draft'"/>
+          <button name="action_done" string="Mark as Done" type="object"
+            class="oe_highlight" invisible="state != 'confirmed'"/>
+          <button name="action_cancel" string="Cancel" type="object"
+            confirm="Are you sure you want to cancel this appointment?"
+            invisible="state in ['done', 'cancel']"/>
+          <button name="action_set_to_draft" string="Reset to Draft" type="object"
+            invisible="state == 'draft'"/>
+
+          <field name="state" widget="statusbar"
+            statusbar_visible="draft,confirmed,done"/>
+        </header>
+
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <!-- Future: Add smart buttons here -->
+          </div>
+
+          <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger"
+            invisible="state != 'cancel'"/>
+          <widget name="web_ribbon" title="Completed" bg_color="text-bg-success"
+            invisible="state != 'done'"/>
+
+          <div class="oe_title">
+            <label for="reference"/>
+            <h1>
+              <field name="reference" readonly="1"/>
+            </h1>
+          </div>
+
+          <group>
+            <group name="customer_info" string="Customer Information">
+              <field name="customer_id" options="{'no_create': True}"/>
+              <field name="customer_phone"/>
+              <field name="customer_email" widget="email"/>
+            </group>
+
+            <group name="service_info" string="Service Information">
+              <field name="service_id" options="{'no_create': True}"/>
+              <field name="price" widget="monetary"/>
+              <field name="currency_id" column_invisible="1"/>
+              <field name="duration" widget="float_time"/>
+            </group>
+          </group>
+
+          <group>
+            <group name="timing" string="Timing">
+              <field name="booking_date"/>
+              <field name="end_date" readonly="1"/>
+              <field name="is_past" invisible="1"/>
+            </group>
+
+            <group name="notes_group" string="Additional Information">
+              <field name="notes" nolabel="1"
+                placeholder="Enter any special requirements or notes..."/>
+            </group>
+          </group>
+
+          <notebook>
+            <page name="notes_page" string="Notes">
+              <field name="notes" placeholder="Additional notes or special requirements..."/>
+            </page>
+          </notebook>
+        </sheet>
+
+        <!-- Chatter -->
+        <chatter/>
+      </form>
+    </field>
+  </record>
+
+  <!-- Calendar View: Visual Scheduling -->
+  <record id="service_appointment_view_calendar" model="ir.ui.view">
+    <field name="name">service.appointment.view.calendar</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <calendar string="Appointment Calendar"
+        date_start="booking_date"
+        date_stop="end_date"
+        mode="month"
+        color="service_id"
+        quick_create="0"
+        event_open_popup="1">
+        <field name="customer_id"/>
+        <field name="service_id"/>
+        <field name="state" filters="1" invisible="1"/>
+      </calendar>
+    </field>
+  </record>
+
+  <!-- Kanban View: Grouped by State -->
+  <record id="service_appointment_view_kanban" model="ir.ui.view">
+    <field name="name">service.appointment.view.kanban</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <kanban string="Appointments" default_group_by="state" class="o_kanban_small_column">
+        <field name="reference"/>
+        <field name="customer_id"/>
+        <field name="service_id"/>
+        <field name="booking_date"/>
+        <field name="state"/>
+        <field name="price"/>
+        <field name="currency_id"/>
+
+        <templates>
+          <t t-name="card">
+            <div class="oe_kanban_global_click">
+              <div class="o_kanban_record_top mb-2">
+                <div class="o_kanban_record_headings">
+                  <strong class="o_kanban_record_title">
+                    <field name="reference"/>
+                  </strong>
+                </div>
+                <div class="o_kanban_record_subtitle">
+                  <field name="customer_id"/>
+                </div>
+              </div>
+
+              <div class="o_kanban_record_body">
+                <field name="service_id"/>
+                <div class="mt-2">
+                  <i class="fa fa-clock-o" title="Booking Date"/>
+                  <field name="booking_date"/>
+                </div>
+                <div class="mt-1">
+                  <i class="fa fa-money" title="Price"/>
+                  <field name="price" widget="monetary"/>
+                </div>
+              </div>
+
+              <div class="o_kanban_record_bottom mt-2">
+                <div class="oe_kanban_bottom_left">
+                  <field name="state" widget="label"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <!-- Search View: Filters and Grouping -->
+  <record id="service_appointment_view_search" model="ir.ui.view">
+    <field name="name">service.appointment.view.search</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <search string="Search Appointments">
+        <field name="reference" string="Reference"/>
+        <field name="customer_id" string="Customer"/>
+        <field name="service_id" string="Service"/>
+
+        <separator/>
+
+        <filter name="filter_draft" string="Draft"
+          domain="[('state', '=', 'draft')]"/>
+        <filter name="filter_confirmed" string="Confirmed"
+          domain="[('state', '=', 'confirmed')]"/>
+        <filter name="filter_done" string="Done"
+          domain="[('state', '=', 'done')]"/>
+        <filter name="filter_cancelled" string="Cancelled"
+          domain="[('state', '=', 'cancel')]"/>
+
+        <separator/>
+
+        <filter name="filter_today" string="Today"
+          domain="[('booking_date', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00')),
+                        ('booking_date', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+        <filter name="filter_this_week" string="This Week"
+          domain="[('booking_date', '&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d')),
+                        ('booking_date', '&lt;=', (context_today() + datetime.timedelta(days=6-context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+        <filter name="filter_upcoming" string="Upcoming"
+          domain="[('booking_date', '&gt;=', context_today())]"/>
+
+        <separator/>
+
+        <filter name="filter_my_appointments" string="My Appointments"
+          domain="[('create_uid', '=', uid)]"/>
+
+        <group expand="0" string="Group By">
+          <filter name="group_customer" string="Customer"
+            context="{'group_by': 'customer_id'}"/>
+          <filter name="group_service" string="Service"
+            context="{'group_by': 'service_id'}"/>
+          <filter name="group_by_service" string="Service (for Dashboard)"
+            context="{'group_by': 'service_id'}"/>
+          <filter name="confirmed" string="Confirmed Only"
+            domain="[('state', '=', 'confirmed')]"/>
+          <filter name="group_state" string="Status"
+            context="{'group_by': 'state'}"/>
+          <filter name="group_date" string="Booking Date"
+            context="{'group_by': 'booking_date'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Action: Appointments -->
+  <record id="service_appointment_action" model="ir.actions.act_window">
+    <field name="name">Appointments</field>
+    <field name="res_model">service.appointment</field>
+    <field name="view_mode">list,form,calendar,kanban</field>
+    <field name="context">{'search_default_filter_upcoming': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> Create your first appointment! </p>
+      <p> Schedule service appointments for your customers. The system will automatically check for
+        time conflicts. </p>
+    </field>
+  </record>
+
+  <!-- Action: Calendar View (for quick access) -->
+  <record id="service_appointment_action_calendar" model="ir.actions.act_window">
+    <field name="name">Appointment Calendar</field>
+    <field name="res_model">service.appointment</field>
+    <field name="view_mode">calendar,list,form,kanban</field>
+    <field name="context">{'search_default_filter_upcoming': 1}</field>
+  </record>
+
+</odoo>

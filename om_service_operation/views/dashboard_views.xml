@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Booking Statistics - Pivot View -->
+  <record id="view_appointment_pivot" model="ir.ui.view">
+    <field name="name">service.appointment.pivot</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <pivot string="Booking Statistics" sample="1">
+        <field name="service_id" type="row"/>
+        <field name="state" type="col"/>
+        <field name="price" type="measure"/>
+      </pivot>
+    </field>
+  </record>
+
+  <!-- Booking Analysis - Graph/Chart View -->
+  <record id="view_appointment_graph" model="ir.ui.view">
+    <field name="name">service.appointment.graph</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <graph string="Booking Analysis" type="bar" sample="1">
+        <field name="service_id"/>
+        <field name="price" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <!-- Revenue by Service - Graph View -->
+  <record id="view_appointment_graph_line" model="ir.ui.view">
+    <field name="name">service.appointment.graph.line</field>
+    <field name="model">service.appointment</field>
+    <field name="arch" type="xml">
+      <graph string="Revenue Trend" type="line" sample="1">
+        <field name="booking_date" interval="week"/>
+        <field name="price" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <!-- Dashboard Action -->
+  <record id="action_appointment_dashboard" model="ir.actions.act_window">
+    <field name="name">Booking Dashboard</field>
+    <field name="res_model">service.appointment</field>
+    <field name="view_mode">graph,pivot</field>
+    <field name="context">{ 'search_default_confirmed': 1, 'search_default_group_by_service': 1, }</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> No booking data yet </p>
+      <p> Create appointments to see analytics and statistics here. </p>
+    </field>
+  </record>
+
+  <!-- Statistics Action (Pivot-focused) -->
+  <record id="action_appointment_statistics" model="ir.actions.act_window">
+    <field name="name">Booking Statistics</field>
+    <field name="res_model">service.appointment</field>
+    <field name="view_mode">pivot,graph,list</field>
+    <field name="context">{}</field>
+  </record>
+
+  <!-- Menu Items -->
+  <menuitem id="menu_appointment_reporting"
+    name="Reporting"
+    parent="om_service_master.menu_service_booking_root"
+    sequence="50"/>
+
+  <menuitem id="menu_appointment_dashboard"
+    name="Dashboard"
+    parent="menu_appointment_reporting"
+    action="action_appointment_dashboard"
+    sequence="1"/>
+
+  <menuitem id="menu_appointment_statistics"
+    name="Statistics"
+    parent="menu_appointment_reporting"
+    action="action_appointment_statistics"
+    sequence="2"/>
+</odoo>

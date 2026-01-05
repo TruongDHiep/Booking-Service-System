@@ -1,0 +1,679 @@
+/* Service Booking Website Styles - Spa Theme */
+
+/* 
+ * SPA COLOR PALETTE:
+ * Primary Gold: #d3b172
+ * Light Cream: #f4f1e6
+ * Dark Brown: #2d1814
+ * White: #ffffff
+ * Peach Cream: #fff1da
+ */
+
+/* Service Catalog */
+.s_banner {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  color: #2d1814;
+}
+
+.bg-primary-light {
+  background-color: #f4f1e6;
+}
+
+.service-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #f4f1e6;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+  cursor: pointer;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #d3b172 0%, #b8956a 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(211, 177, 114, 0.15),
+    0 0 0 1px rgba(211, 177, 114, 0.1) !important;
+  border-color: #d3b172;
+}
+
+.service-image-wrapper {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f4f1e6 0%, #fff1da 100%);
+}
+
+.service-image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 24, 20, 0) 0%,
+    rgba(45, 24, 20, 0.3) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover .service-image-wrapper::after {
+  opacity: 1;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0.95);
+}
+
+.service-card:hover .service-image {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+.service-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f4f1e6 0%, #fff1da 100%);
+  color: #d3b172;
+  font-size: 3rem;
+}
+
+.service-image-placeholder i {
+  filter: drop-shadow(0 2px 8px rgba(211, 177, 114, 0.2));
+}
+
+.service-card .card-body {
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffbf5 100%);
+}
+
+.service-card .card-title {
+  color: #2d1814;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.service-card .card-text {
+  color: #8b7452;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.service-meta {
+  border-top: 2px solid #f4f1e6;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  background: #fffbf5;
+  padding: 1rem;
+  border-radius: 0 0 14px 14px;
+  margin: 0 -1.5rem -1.5rem -1.5rem;
+}
+
+/* Booking Form */
+.card {
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 2px solid #f4f1e6;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  color: #2d1814;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #d3b172;
+  box-shadow: 0 0 0 0.2rem rgba(211, 177, 114, 0.25);
+  background: #fff1da;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  border: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #b8956a 0%, #9d7c4f 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 177, 114, 0.4);
+  color: #ffffff;
+}
+
+.btn-outline-primary {
+  color: #d3b172;
+  border-color: #d3b172;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  border-color: #d3b172;
+  color: #ffffff;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* ===================================
+   TIME SLOT SELECTION STYLES  
+   =================================== */
+
+/* Time Slots Grid */
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+/* Individual Time Slot Button */
+.time-slot {
+  position: relative;
+  padding: 1rem 0.75rem;
+  border: 2px solid #f4f1e6;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-weight: 500;
+  color: #2d1814;
+}
+
+.time-slot:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 177, 114, 0.2);
+  border-color: #d3b172;
+}
+
+/* Available Slot */
+.time-slot.available {
+  border-color: #d3b172;
+  background: #fff1da;
+  color: #2d1814;
+}
+
+.time-slot.available:hover {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  color: #ffffff;
+  border-color: #d3b172;
+}
+
+/* Selected Slot */
+.time-slot.selected {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  border-color: #d3b172;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(211, 177, 114, 0.3);
+}
+
+/* Full Slot */
+.time-slot.full {
+  background: #f4f1e6;
+  border-color: #d3b172;
+  color: #8b7452;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Past Slot */
+.time-slot.past {
+  background: #f4f1e6;
+  border-color: #e0d8c8;
+  color: #8b7452;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Disabled generic state */
+.time-slot.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Slot Time Display */
+.time-slot .slot-time {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Slot Capacity Info */
+.time-slot .slot-capacity {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* Slot Legend */
+.slot-legend {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border: 2px solid;
+}
+
+.slot-legend.slot-available {
+  background: #fff1da;
+  border-color: #d3b172;
+}
+
+.slot-legend.slot-full {
+  background: #f4f1e6;
+  border-color: #d3b172;
+}
+
+.slot-legend.slot-past {
+  background: #f4f1e6;
+  border-color: #e0d8c8;
+}
+
+.slot-legend.slot-selected {
+  background: #d3b172;
+  border-color: #d3b172;
+}
+
+/* Date Input Enhanced Styling */
+#selected_date {
+  padding-right: 1rem;
+}
+
+/* Slide in animation for time slot container */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#time_slot_container {
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* Success Page */
+.fa-check-circle.text-success {
+  color: #28a745 !important; /* Green instead of gold */
+  animation: successPulse 1s ease-in-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.appointment-detail {
+  padding: 0.5rem 0;
+}
+
+.appointment-detail:not(:last-child) {
+  border-bottom: 1px solid #f4f1e6;
+}
+
+/* Error Page */
+.fa-exclamation-triangle.text-danger {
+  color: #dc3545 !important; /* Red for errors */
+  animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+/* Portal Styles */
+.nav-pills .nav-link {
+  color: #8b7452;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link:hover {
+  background: #fff1da;
+  color: #2d1814;
+}
+
+.nav-pills .nav-link.active {
+  background: linear-gradient(135deg, #d3b172 0%, #b8956a 100%);
+  color: #ffffff;
+}
+
+/* Appointment Cards */
+.appointment-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(211, 177, 114, 0.15);
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.appointment-card:hover {
+  box-shadow: 0 4px 16px rgba(211, 177, 114, 0.25);
+  transform: translateY(-4px);
+}
+
+.appointment-card .card-title {
+  color: #2d1814;
+  font-weight: 600;
+}
+
+.appointment-card .detail-item {
+  display: flex;
+  align-items: center;
+  color: #8b7452;
+  font-size: 0.9rem;
+}
+
+.appointment-card .detail-item i {
+  width: 20px;
+  color: #d3b172;
+}
+
+/* Appointment Detail Page */
+.appointment-detail-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(211, 177, 114, 0.15);
+  background: #ffffff;
+}
+
+.appointment-detail-card .card-header {
+  border-bottom: 2px solid #f4f1e6;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fff1da 0%, #ffffff 100%);
+}
+
+.appointment-detail-card .section-title {
+  color: #2d1814;
+  font-weight: 600;
+  border-bottom: 2px solid #d3b172;
+  padding-bottom: 0.5rem;
+}
+
+.appointment-detail-card .info-group {
+  margin-top: 1rem;
+}
+
+.appointment-detail-card .info-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f4f1e6;
+}
+
+.appointment-detail-card .info-item:last-child {
+  border-bottom: none;
+}
+
+.appointment-detail-card .info-item label {
+  color: #8b7452;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.appointment-detail-card .info-item p {
+  color: #2d1814;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.badge-lg {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Alert Success - Green Theme */
+.alert-success {
+  background-color: #d4edda !important; /* Light green background */
+  color: #155724 !important; /* Dark green text */
+  border-left: 4px solid #28a745 !important; /* Green border */
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Spa-specific styling */
+body {
+  background-color: #f4f1e6;
+  color: #2d1814;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #2d1814;
+}
+
+.text-muted {
+  color: #8b7452 !important;
+}
+
+/* Form backgrounds */
+.bg-light.rounded,
+.p-3.bg-light {
+  background-color: #fff1da !important;
+}
+
+/* ===================================
+   SERVICE DETAIL PAGE STYLES
+   =================================== */
+
+/* Hero Section */
+.service-hero {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d1814 0%, #4a342a 100%);
+}
+
+.service-hero-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.service-hero-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.service-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 24, 20, 0.6) 0%,
+    rgba(45, 24, 20, 0.8) 100%
+  );
+  z-index: 1;
+}
+
+.service-hero-content {
+  z-index: 2;
+}
+
+.service-hero-badge {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Detail Cards */
+.service-detail-card {
+  background: #ffffff;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.service-detail-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-detail-card h2,
+.service-detail-card h3 {
+  color: #2d1814;
+}
+
+.service-description {
+  color: #2d1814;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.service-description h1,
+.service-description h2,
+.service-description h3 {
+  color: #2d1814;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.service-description ul,
+.service-description ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.service-description li {
+  margin-bottom: 0.5rem;
+}
+
+/* Sidebar Summary Card */
+.service-summary-card {
+  background: linear-gradient(135deg, #fffbf5 0%, #ffffff 100%);
+  border: 2px solid #f4f1e6 !important;
+  border-radius: 16px;
+  top: 100px;
+}
+
+.service-info-item {
+  font-size: 1rem;
+}
+
+.service-info-item i {
+  color: #d3b172;
+}
+
+/* Responsive Detail Page */
+@media (max-width: 992px) {
+  .service-hero {
+    height: 400px;
+  }
+
+  .service-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .service-summary-card {
+    position: static !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-hero {
+    height: 350px;
+  }
+
+  .service-hero h1 {
+    font-size: 2rem;
+  }
+
+  .service-hero-badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

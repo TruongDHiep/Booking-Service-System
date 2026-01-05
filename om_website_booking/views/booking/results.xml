@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Success Page Template -->
+  <template id="booking_success" name="Booking Success">
+    <t t-call="website.layout">
+      <div id="wrap" class="oe_structure">
+
+        <section class="py-5">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+
+                <!-- Success Message -->
+                <div class="text-center mb-4">
+                  <div class="mb-4">
+                    <i class="fa fa-check-circle fa-5x text-success"/>
+                  </div>
+                  <h2 class="fw-bold mb-2">Booking Confirmed</h2>
+                  <p class="text-muted">Your appointment has been successfully scheduled</p>
+                </div>
+
+                <!-- Appointment Details Card -->
+                <div class="card shadow-sm mb-4">
+                  <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Appointment Details</h5>
+
+                    <div class="appointment-detail mb-3">
+                      <div class="row">
+                        <div class="col-4 text-muted">Reference:</div>
+                        <div class="col-8 fw-bold">
+                          <t t-esc="appointment.reference"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="appointment-detail mb-3">
+                      <div class="row">
+                        <div class="col-4 text-muted">Service:</div>
+                        <div class="col-8">
+                          <t t-esc="appointment.service_id.name"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="appointment-detail mb-3">
+                      <div class="row">
+                        <div class="col-4 text-muted">Customer:</div>
+                        <div class="col-8">
+                          <t t-esc="appointment.customer_id.name"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="appointment-detail mb-3">
+                      <div class="row">
+                        <div class="col-4 text-muted">Date &amp; Time:</div>
+                        <div class="col-8">
+                          <t t-esc="appointment.booking_date"
+                            t-options="{'widget': 'datetime', 'format': 'MMMM dd, yyyy - HH:mm'}"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="appointment-detail mb-3">
+                      <div class="row">
+                        <div class="col-4 text-muted">Duration:</div>
+                        <div class="col-8">
+                          <t t-esc="appointment.service_id.duration_display"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="appointment-detail">
+                      <div class="row">
+                        <div class="col-4 text-muted">Price:</div>
+                        <div class="col-8 fw-bold text-primary">
+                          <t t-esc="appointment.price"
+                            t-options="{'widget': 'monetary', 'display_currency': appointment.currency_id}"/>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Info Alert -->
+                <div class="alert alert-info mb-4">
+                  <i class="fa fa-info-circle me-2"/>A confirmation email has been sent to <strong>
+                    <t t-esc="appointment.customer_id.email"/>
+                  </strong>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-2">
+                  <a href="/booking" class="btn btn-primary">
+                    <i class="fa fa-calendar me-2"/>Book Another Service</a>
+                  <a href="/" class="btn btn-outline-secondary">
+                    <i class="fa fa-home me-2"/>Back to Home</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </t>
+  </template>
+
+  <!-- Error Page Template -->
+  <template id="booking_error" name="Booking Error">
+    <t t-call="website.layout">
+      <div id="wrap" class="oe_structure">
+
+        <section class="py-5">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-6">
+
+                <!-- Error Message -->
+                <div class="text-center mb-4">
+                  <div class="mb-4">
+                    <i class="fa fa-exclamation-triangle fa-5x text-danger"/>
+                  </div>
+                  <h2 class="fw-bold mb-2">Booking Failed</h2>
+                  <p class="text-muted">There was a problem processing your booking</p>
+                </div>
+
+                <!-- Error Details -->
+                <div class="alert alert-danger">
+                  <h5 class="alert-heading">
+                    <i class="fa fa-times-circle me-2"/>Error Details</h5>
+                  <ul class="mb-0">
+                    <t t-foreach="errors" t-as="error">
+                      <li>
+                        <t t-esc="error"/>
+                      </li>
+                    </t>
+                  </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-2">
+                  <a href="javascript:history.back()" class="btn btn-primary">
+                    <i class="fa fa-arrow-left me-2"/>Try Again</a>
+                  <a href="/booking" class="btn btn-outline-secondary">
+                    <i class="fa fa-calendar me-2"/>Browse Services</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </t>
+  </template>
+
+</odoo>

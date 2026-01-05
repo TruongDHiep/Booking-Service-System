@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Operations Menu under Service Booking -->
+  <menuitem id="menu_service_operation"
+    name="Operations"
+    parent="om_service_master.menu_service_booking_root"
+    sequence="20"/>
+
+  <!-- Appointments Menu -->
+  <menuitem id="menu_service_appointment"
+    name="Appointments"
+    parent="menu_service_operation"
+    action="service_appointment_action"
+    sequence="10"/>
+
+  <!-- Calendar Menu (Quick Access) -->
+  <menuitem id="menu_service_appointment_calendar"
+    name="Calendar View"
+    parent="menu_service_operation"
+    action="service_appointment_action_calendar"
+    sequence="20"/>
+
+</odoo>
