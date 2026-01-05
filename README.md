@@ -11,6 +11,27 @@
 - **Portal Access**: Customers can view and manage their bookings
 - **Analytics Dashboard**: Pivot and graph views for booking insights
 
+## Screenshots
+
+### User Interface
+<img width="1920" height="2741" alt="ảnh" src="https://github.com/user-attachments/assets/84db5eb3-4bf7-4c07-af6e-2cb47a18a424" />
+<img width="1920" height="2121" alt="ảnh" src="https://github.com/user-attachments/assets/c8d7bc86-cb88-4498-bb0c-d27deb308155" />
+<img width="1920" height="3546" alt="ảnh" src="https://github.com/user-attachments/assets/c8509807-c6e5-4d2e-9f2a-d90f2e00280d" />
+<img width="1920" height="2770" alt="ảnh" src="https://github.com/user-attachments/assets/77a16375-20d8-41f2-a6a9-8cf5901b8dc7" />
+<img width="1920" height="1938" alt="ảnh" src="https://github.com/user-attachments/assets/f0d79c0a-f95a-41f8-b431-e9f491869c93" />
+
+### User Portal 
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/8781659c-0db0-4c99-9729-17e06e861261" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/b17ff27e-734b-4017-9397-f93c5a84f4d5" />
+
+### Admin Panel
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/6c5ee4b4-4027-457a-9d70-02a5a2525446" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/58ce4b62-5037-4d75-a303-e0758fc2fd06" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/8e809723-d320-4353-8077-8e10ca6023ef" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/773166c5-3a65-419d-81ba-1cc48d801736" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/f6fe2818-f74e-4c65-badf-24289d75b317" />
+<img width="1920" height="913" alt="ảnh" src="https://github.com/user-attachments/assets/cc8f9324-41d5-433a-8767-1157fc4f8138" />
+
 ## Modules
 
 ### 1. `om_service_master` - Data Layer
