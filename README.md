@@ -1,7 +1,5 @@
 # Odoo 18 Service Booking System
 
-A professional, modular booking management system for Odoo 18 with website integration.
-
 ## Features
 
 - **Multi-Module Architecture**: 4 specialized modules with clear separation of concerns
