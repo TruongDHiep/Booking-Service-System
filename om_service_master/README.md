@@ -8,12 +8,12 @@ This module provides master data management capabilities for services without im
 
 ## Features
 
-- ✅ **Service Catalog Management**: Create and manage service offerings
-- ✅ **Pricing Configuration**: Set prices with multi-currency support
-- ✅ **Duration Settings**: Define service duration in hours
-- ✅ **Image Gallery**: Add representative images for each service
-- ✅ **Data Validation**: Built-in constraints for duration and pricing
-- ✅ **Archive Support**: Archive services without deletion
+-  **Service Catalog Management**: Create and manage service offerings
+-  **Pricing Configuration**: Set prices with multi-currency support
+-  **Duration Settings**: Define service duration in hours
+-  **Image Gallery**: Add representative images for each service
+-  **Data Validation**: Built-in constraints for duration and pricing
+-  **Archive Support**: Archive services without deletion
 
 ## Module Information
 
