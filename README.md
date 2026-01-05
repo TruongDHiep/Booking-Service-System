@@ -2,7 +2,7 @@
 
 A professional, modular booking management system for Odoo 18 with website integration.
 
-## 🌟 Features
+##  Features
 
 - **Multi-Module Architecture**: 4 specialized modules with clear separation of concerns
 - **Website Integration**: Beautiful, responsive booking interface for customers
@@ -13,7 +13,7 @@ A professional, modular booking management system for Odoo 18 with website integ
 - **Portal Access**: Customers can view and manage their bookings
 - **Analytics Dashboard**: Pivot and graph views for booking insights
 
-## 📦 Modules
+##  Modules
 
 ### 1. `om_service_master` - Data Layer
 
@@ -89,10 +89,10 @@ git clone https://github.com/YOUR_USERNAME/booking_system.git
 3. Install modules in order:
    - `om_service_master` (required first)
    - `om_service_operation`
-   - `om_service_sale` (optional)
-   - `om_website_booking` (optional)
+   - `om_service_sale` 
+   - `om_website_booking`
 
-## 📖 Usage
+## Usage
 
 ### For Administrators
 
@@ -109,7 +109,7 @@ git clone https://github.com/YOUR_USERNAME/booking_system.git
 4. Fill booking form
 5. Access bookings via portal: `My Account → My Appointments`
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────┐
@@ -134,7 +134,7 @@ git clone https://github.com/YOUR_USERNAME/booking_system.git
 └─────────────────────────────────────────┘
 ```
 
-## 🔒 Security
+##  Security
 
 ### Access Groups
 
@@ -148,7 +148,7 @@ git clone https://github.com/YOUR_USERNAME/booking_system.git
 - Managers: See all appointments
 - Portal users: See only bookings linked to their partner
 
-## 🛠️ Configuration
+##  Configuration
 
 ### Email Templates
 
@@ -161,40 +161,7 @@ Customize email templates in: `om_service_operation/data/email_templates.xml`
 
 Configure in: `om_service_operation/data/cron_jobs.xml`
 
-## 📊 Technical Highlights
-
-- **Service Layer Pattern**: Business logic separated into reusable services
-- **Portal Mixin**: Seamless customer portal integration
-- **Mail Thread**: Full chatter support for communication
-- **Activity Mixin**: Task and reminder management
-- **Computed Fields**: Optimized with proper `@api.depends`
-- **SQL Constraints**: Data integrity at database level
-- **Proper Validation**: `@api.constrains` for business rules
-
-## 🧪 Testing
-
-Tests are located in `om_service_operation/tests/`:
-
-```bash
-./odoo-bin -c odoo.conf --test-enable --stop-after-init -u om_service_operation
-```
-
-## 📝 License
-
-LGPL-3
-
-## 👤 Author
+##  Author
 
 **Truong Hiep**
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## ⭐ Show your support
-
-Give a ⭐️ if this project helped you!
-
----
-
-**Built with ❤️ using Odoo 18**
