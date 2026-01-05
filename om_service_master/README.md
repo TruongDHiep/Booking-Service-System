@@ -80,13 +80,6 @@ om_service_operation (Business Logic Layer)
 om_website_booking (Presentation Layer)
 ```
 
-## Development Notes
-
-- Follows **PEP8** coding standards
-- Uses `snake_case` for variables and functions
-- Uses `PascalCase` for class names
-- XML IDs follow pattern: `module_name.model_name_view_type`
-
 ## Support
 
 For issues or questions, contact the module author.
